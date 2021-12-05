@@ -1,9 +1,9 @@
-package com.github.funczz.rocket_launcher.gui.sam.launcher.action
+package com.github.funczz.rocket_launcher.core.sam.launcher.action
 
 import com.github.funczz.kotlin.sam.ISamAction
 import com.github.funczz.rocket_launcher.core.domain.model.launcher.LauncherEvent
-import com.github.funczz.rocket_launcher.gui.sam.launcher.LauncherSamActionInputData
-import com.github.funczz.rocket_launcher.gui.sam.launcher.LauncherSamModel
+import com.github.funczz.rocket_launcher.core.sam.launcher.LauncherSamActionInputData
+import com.github.funczz.rocket_launcher.core.sam.launcher.LauncherSamModel
 import java.util.*
 
 interface ILauncherSamAction : ISamAction<LauncherSamActionInputData, LauncherSamModel> {
@@ -17,7 +17,8 @@ interface ILauncherSamAction : ISamAction<LauncherSamActionInputData, LauncherSa
                 onFailure = { return Result.failure(it) }
             )
 
-        return Result.success(LauncherSamActionInputData.create(
+        return Result.success(
+            LauncherSamActionInputData.create(
             model = model,
             prevModel = Optional.of(prevModel)
         ))

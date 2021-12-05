@@ -1,6 +1,8 @@
 package com.github.funczz.rocket_launcher.gui.sam.launcher
 
 import com.github.funczz.kotlin.sam.ISamStateRepresentation
+import com.github.funczz.rocket_launcher.core.sam.launcher.ILauncherSamState
+import com.github.funczz.rocket_launcher.core.sam.launcher.LauncherSamModel
 import com.github.funczz.rocket_launcher.gui.util.ExtendedJFrame
 import com.github.funczz.rocket_launcher.gui.util.ExtendedJFrame.Companion.transition
 import com.github.funczz.rocket_launcher.gui.view.AbortedPanel
@@ -10,7 +12,7 @@ import com.github.funczz.rocket_launcher.gui.view.ReadyPanel
 import java.util.*
 import javax.swing.JPanel
 
-class LauncherSamStateRepresentation(
+class GuiLauncherSamStateRepresentation(
 
     private val jFrame: ExtendedJFrame = ExtendedJFrame()
 

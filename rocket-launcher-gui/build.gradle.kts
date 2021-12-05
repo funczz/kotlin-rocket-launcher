@@ -26,8 +26,6 @@ buildscript {
  */
 dependencies {
     implementation(project(":rocket-launcher-core"))
-    implementation("com.github.funczz:fsm:0.1.0")
-    implementation("com.github.funczz:sam:0.1.0")
 }
 
 /**

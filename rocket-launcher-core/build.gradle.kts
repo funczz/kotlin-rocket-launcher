@@ -17,7 +17,8 @@ buildscript {
  * dependencies
  */
 dependencies {
-    implementation("com.github.funczz:fsm:0.1.0")
+    api("com.github.funczz:fsm:0.1.0")
+    api("com.github.funczz:sam:0.1.0")
 }
 
 /**

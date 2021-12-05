@@ -1,10 +1,10 @@
-package com.github.funczz.rocket_launcher.gui.sam.launcher
+package com.github.funczz.rocket_launcher.core.sam.launcher
 
 import com.github.funczz.kotlin.sam.ISamModelPresent
 import com.github.funczz.kotlin.sam.ISamStateNextAction
 import com.github.funczz.kotlin.sam.SamNextAction
 import com.github.funczz.rocket_launcher.core.domain.model.launcher.Launcher
-import com.github.funczz.rocket_launcher.gui.sam.launcher.action.LaunchLauncherSamAction
+import com.github.funczz.rocket_launcher.core.sam.launcher.action.LaunchLauncherSamAction
 
 class LauncherSamStateNextAction : ILauncherSamState, ISamStateNextAction<LauncherSamModel> {
 
