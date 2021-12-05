@@ -33,3 +33,11 @@ gitRepositories {
         tag.set("v0.1.0")
     }
 }
+
+gitRepositories {
+    include("kotlin-sam") {
+        uri.set("https://github.com/funczz/kotlin-sam.git")
+        //branch.set("main")
+        tag.set("v0.1.0")
+    }
+}
