@@ -1,8 +1,8 @@
-package com.github.funczz.rocket_launcher.gui.sam.launcher.action
+package com.github.funczz.rocket_launcher.core.sam.launcher.action
 
 import com.github.funczz.rocket_launcher.core.domain.model.launcher.LauncherEvent
-import com.github.funczz.rocket_launcher.gui.sam.launcher.LauncherSamActionInputData
-import com.github.funczz.rocket_launcher.gui.sam.launcher.LauncherSamModel
+import com.github.funczz.rocket_launcher.core.sam.launcher.LauncherSamActionInputData
+import com.github.funczz.rocket_launcher.core.sam.launcher.LauncherSamModel
 
 object LaunchLauncherSamAction : ILauncherSamAction {
 

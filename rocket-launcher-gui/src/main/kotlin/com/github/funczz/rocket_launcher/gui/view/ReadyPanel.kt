@@ -2,9 +2,9 @@ package com.github.funczz.rocket_launcher.gui.view
 
 import com.github.funczz.rocket_launcher.core.domain.model.launcher.Launcher
 import com.github.funczz.rocket_launcher.core.domain.model.launcher.state.Ready
-import com.github.funczz.rocket_launcher.gui.sam.launcher.LauncherSamActionInputData
-import com.github.funczz.rocket_launcher.gui.sam.launcher.LauncherSamExecutor
-import com.github.funczz.rocket_launcher.gui.sam.launcher.action.StartLauncherSamAction
+import com.github.funczz.rocket_launcher.core.sam.launcher.LauncherSamActionInputData
+import com.github.funczz.rocket_launcher.core.sam.launcher.action.StartLauncherSamAction
+import com.github.funczz.rocket_launcher.gui.sam.launcher.GuiLauncherSamExecutor
 import java.util.*
 import javax.swing.*
 import javax.swing.event.DocumentEvent
@@ -96,7 +96,7 @@ class ReadyPanel : JPanel() {
         val samActionData = LauncherSamActionInputData.create(
             model = Launcher(state = Ready, counter = counter)
         )
-        LauncherSamExecutor.execute(
+        GuiLauncherSamExecutor.execute(
             samAction = StartLauncherSamAction,
             samActionData = samActionData,
         )

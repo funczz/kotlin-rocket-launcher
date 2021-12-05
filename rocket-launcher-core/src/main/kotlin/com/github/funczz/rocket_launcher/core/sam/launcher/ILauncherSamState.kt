@@ -1,4 +1,4 @@
-package com.github.funczz.rocket_launcher.gui.sam.launcher
+package com.github.funczz.rocket_launcher.core.sam.launcher
 
 import com.github.funczz.rocket_launcher.core.domain.model.launcher.state.Aborted
 import com.github.funczz.rocket_launcher.core.domain.model.launcher.state.Counting
