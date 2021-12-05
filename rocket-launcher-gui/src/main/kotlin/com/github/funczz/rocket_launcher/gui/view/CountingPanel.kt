@@ -2,9 +2,11 @@ package com.github.funczz.rocket_launcher.gui.view
 
 import com.github.funczz.rocket_launcher.core.domain.model.launcher.Launcher
 import com.github.funczz.rocket_launcher.core.domain.model.launcher.state.Counting
+import com.github.funczz.rocket_launcher.core.domain.service.CountdownTimer
 import com.github.funczz.rocket_launcher.gui.sam.launcher.LauncherSamActionInputData
 import com.github.funczz.rocket_launcher.gui.sam.launcher.LauncherSamExecutor
 import com.github.funczz.rocket_launcher.gui.sam.launcher.action.AbortLauncherSamAction
+import com.github.funczz.rocket_launcher.gui.sam.launcher.action.DecrementLauncherSamAction
 import java.util.*
 import javax.swing.*
 
@@ -14,8 +16,11 @@ class CountingPanel(private var counter: UInt) : JPanel() {
 
     private val abortButton: JButton = createAbortButton()
 
+    private val countdownTimer: CountdownTimer = createCountdownTimer()
+
     init {
         layout = createLayout()
+        startCountdownTimer()
     }
 
     private fun createLayout(): BoxLayout {
@@ -26,11 +31,31 @@ class CountingPanel(private var counter: UInt) : JPanel() {
         }
     }
 
+    private fun createCountdownTimer(): CountdownTimer {
+        return CountdownTimer(counter)
+    }
+
+    private fun startCountdownTimer() {
+        countdownTimer.start {
+            executeDecrementAction()
+        }
+    }
+
     private fun createStateLabel(): JLabel {
         return JLabel().apply { name = "stateLabel" }
             .also {
-                it.text = "Counting. counter=%s".format(counter)
+                updateStateLabel(it)
             }
+    }
+
+    private fun updateStateLabel() {
+        updateStateLabel(stateLabel)
+    }
+
+    private fun updateStateLabel(label: JLabel) {
+        SwingUtilities.invokeLater {
+            label.text = "Counting. counter=%s".format(counter)
+        }
     }
 
     private fun createAbortButton(): JButton {
@@ -42,14 +67,33 @@ class CountingPanel(private var counter: UInt) : JPanel() {
             }
     }
 
+    private fun executeDecrementAction() {
+        countdownTimer.decrement {
+            // countdownTimer.decrement から渡される数値 it は デクリメント後の値なので、
+            // DecrementLauncherSamAction に渡す LauncherSamActionInputData.counter には
+            // it に 1 を足した値を代入する。
+            val samActionData = LauncherSamActionInputData.create(
+                model = Launcher(state = Counting, counter = Optional.of(it + 1u))
+            )
+            LauncherSamExecutor.execute(
+                samAction = DecrementLauncherSamAction,
+                samActionData = samActionData
+            )
+            counter = it
+            updateStateLabel()
+        }
+    }
+
     private fun executeAbortAction() {
-        val samActionData = LauncherSamActionInputData.create(
-            model = Launcher(state = Counting, counter = Optional.of(counter))
-        )
-        LauncherSamExecutor.execute(
-            samAction = AbortLauncherSamAction,
-            samActionData = samActionData,
-        )
+        countdownTimer.abort {
+            val samActionData = LauncherSamActionInputData.create(
+                model = Launcher(state = Counting, counter = Optional.of(it))
+            )
+            LauncherSamExecutor.execute(
+                samAction = AbortLauncherSamAction,
+                samActionData = samActionData,
+            )
+        }
     }
 
 }
