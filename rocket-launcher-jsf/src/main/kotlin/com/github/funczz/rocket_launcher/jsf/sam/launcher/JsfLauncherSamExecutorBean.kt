@@ -37,6 +37,8 @@ open class JsfLauncherSamExecutorBean : Serializable, ISamExecutor<
 
     open var number: Int? = null
 
+    open var throwable: Throwable? = null
+
     override fun samPresent(): LauncherSamModelPresent {
         return samPresent
     }
@@ -50,7 +52,8 @@ open class JsfLauncherSamExecutorBean : Serializable, ISamExecutor<
     }
 
     open fun startAction(): String? {
-        state = Ready
+        this.state = Ready
+        this.throwable = null
         return this.action(samAction = StartLauncherSamAction)
     }
 
@@ -62,6 +65,10 @@ open class JsfLauncherSamExecutorBean : Serializable, ISamExecutor<
         return this.action(samAction = AbortLauncherSamAction)
     }
 
+    open fun errorMessage(): String {
+        return this.throwable?.stackTraceToString() ?: ""
+    }
+
     private fun action(samAction: ILauncherSamAction): String? {
         val counter = try {
             Optional.of(number!!.toUInt())
@@ -69,13 +76,26 @@ open class JsfLauncherSamExecutorBean : Serializable, ISamExecutor<
             Optional.empty<UInt>()
         } catch (e: NumberFormatException) {
             Optional.empty<UInt>()
+        } catch (e: Exception) {
+            this.throwable = e
+            return "error"
         }
         val model = Launcher(state = state, counter = counter)
         val data = LauncherSamActionInputData.create(model)
         val resultAction = this.doAction(samAction, data)
-        val samModel = resultAction.getOrThrow()
+        val samModel = try {
+            resultAction.getOrThrow()
+        } catch (e: Exception) {
+            this.throwable = e
+            return "error"
+        }
         state = samModel.state
-        number = samModel.counter.get().toInt()
+        number = try {
+            samModel.counter.get().toInt()
+        } catch (e: Exception) {
+            this.throwable = e
+            return "error"
+        }
         this.doRepresentation(samModel)
         return samRepresentation().returnValue
     }
