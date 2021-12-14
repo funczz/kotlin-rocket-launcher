@@ -2,7 +2,6 @@ package com.github.funczz.rocket_launcher.jsf.sam.launcher
 
 import com.github.funczz.kotlin.sam.ISamExecutor
 import com.github.funczz.rocket_launcher.core.domain.model.launcher.Launcher
-import com.github.funczz.rocket_launcher.core.domain.model.launcher.state.Counting
 import com.github.funczz.rocket_launcher.core.domain.model.launcher.state.ILauncherState
 import com.github.funczz.rocket_launcher.core.domain.model.launcher.state.Ready
 import com.github.funczz.rocket_launcher.core.sam.launcher.LauncherSamActionInputData
