@@ -10,11 +10,11 @@
 </h:head>
 
 <h:body>
-    <h2>Ready.</h2>
+    <h2>Counting.</h2>
     <h:form>
-        <h:inputText id="number" value="#{jsfLauncherSamExecutorBean.number}"/><p/>
-        <p/>
-        <h:commandButton type="submit" value="Start" action="#{jsfLauncherSamExecutorBean.startAction()}"/>
+        count: <h:outputText id="number" value="#{jsfLauncherSamExecutorBean.number}"/><p/>
+        <h:commandButton type="submit" value="Decrement" action="#{jsfLauncherSamExecutorBean.decrementAction()}"/>
+        <h:commandButton type="submit" value="Abort" action="#{jsfLauncherSamExecutorBean.abortAction()}"/>
     </h:form>
 </h:body>
 
