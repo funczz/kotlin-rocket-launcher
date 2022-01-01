@@ -13,7 +13,6 @@ class CountdownTimer(
 
     private val lock = ReentrantLock(true)
 
-
     fun abort(f: (UInt) -> Unit) {
         withLock {
             aborted = true

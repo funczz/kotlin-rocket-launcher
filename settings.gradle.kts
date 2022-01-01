@@ -30,8 +30,8 @@ include(":rocket-launcher-jsf")
 gitRepositories {
     include("kotlin-fsm") {
         uri.set("https://github.com/funczz/kotlin-fsm.git")
-        //branch.set("main")
-        tag.set("v0.1.0")
+        branch.set("main")
+        //tag.set("v0.1.0")
     }
 }
 

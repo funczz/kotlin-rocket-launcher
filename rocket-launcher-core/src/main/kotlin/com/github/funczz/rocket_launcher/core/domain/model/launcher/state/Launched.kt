@@ -6,13 +6,13 @@ import com.github.funczz.rocket_launcher.core.domain.model.launcher.LauncherEven
 import java.util.*
 
 object Launched : ILauncherState {
-    override fun toTransition(event: LauncherEvent): Optional<FsmTransition<LauncherEvent, Launcher>> {
+    override fun toTransition(event: LauncherEvent): FsmTransition<LauncherEvent, Launcher> {
         return when (event) {
-            is LauncherEvent.START -> Optional.empty()
-            is LauncherEvent.DECREMENT -> Optional.empty()
-            is LauncherEvent.LAUNCH -> Optional.empty()
-            is LauncherEvent.ABORT -> Optional.empty()
-            is LauncherEvent.FINISH -> Optional.of(FsmTransition.External(End))
+            is LauncherEvent.START -> FsmTransition.Deny()
+            is LauncherEvent.DECREMENT -> FsmTransition.Deny()
+            is LauncherEvent.LAUNCH -> FsmTransition.Deny()
+            is LauncherEvent.ABORT -> FsmTransition.Deny()
+            is LauncherEvent.FINISH -> FsmTransition.External(End)
         }
     }
 

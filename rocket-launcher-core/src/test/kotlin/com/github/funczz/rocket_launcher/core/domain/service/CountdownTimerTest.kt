@@ -48,14 +48,16 @@ internal class CountdownTimerTest : StringSpec() {
 
         "Launcher" {
             val expected = 0u
-
             var launcher = Launcher()
-            val result = launcher.state.fire(LauncherEvent.START(10u), launcher)
-            launcher = result.getOrNull()!!.ctx
+            launcher =  launcher.state.fire(LauncherEvent.START(10u), launcher)
+                .getOrThrow()
+                .second
             val timer = CountdownTimer(counter = launcher.counter.get())
             timer.start {
                 println("count %s".format(it))
-                launcher = launcher.state.fire(LauncherEvent.DECREMENT, launcher).getOrNull()!!.ctx
+                launcher = launcher.state.fire(LauncherEvent.DECREMENT, launcher)
+                    .getOrThrow()
+                    .second
             }.join()
 
             launcher.counter.get() shouldBe expected

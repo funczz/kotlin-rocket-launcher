@@ -13,7 +13,7 @@ interface ILauncherSamAction : ISamAction<LauncherSamActionInputData, LauncherSa
 
         val model = prevModel.state.fire(event, prevModel)
             .fold(
-                onSuccess = { it.ctx },
+                onSuccess = { (_, c) -> c },
                 onFailure = { return Result.failure(it) }
             )
 
