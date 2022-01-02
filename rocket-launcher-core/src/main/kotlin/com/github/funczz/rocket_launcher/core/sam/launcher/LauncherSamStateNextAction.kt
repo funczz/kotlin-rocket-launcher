@@ -1,8 +1,6 @@
 package com.github.funczz.rocket_launcher.core.sam.launcher
 
-import com.github.funczz.kotlin.sam.ISamModelPresent
-import com.github.funczz.kotlin.sam.ISamStateNextAction
-import com.github.funczz.kotlin.sam.SamNextAction
+import com.github.funczz.kotlin.sam.*
 import com.github.funczz.rocket_launcher.core.domain.model.launcher.Launcher
 import com.github.funczz.rocket_launcher.core.sam.launcher.action.LaunchLauncherSamAction
 
@@ -10,21 +8,23 @@ class LauncherSamStateNextAction : ILauncherSamState, ISamStateNextAction<Launch
 
     private val samPresent: ISamModelPresent<LauncherSamActionInputData, LauncherSamModel> = LauncherSamModelPresent()
 
-    override fun nextAction(model: LauncherSamModel): Result<SamNextAction<LauncherSamModel>> {
-        val nextAction = when(isCountingZero(model = model)) {
+    override fun nextActionPredicate(data: SamNextActionData<LauncherSamModel>): Result<SamNextActionData<LauncherSamModel>> {
+        if (data is Terminate<LauncherSamModel>) return Result.success(data)
+        val model = data.model
+        val result = when(isCountingZero(model = model)) {
             true -> {
                 val prevModel = Launcher(state = model.state, counter = model.counter)
-                val data = LauncherSamActionInputData(model = prevModel)
-                val nextModel = LaunchLauncherSamAction.execute(samPresent::present, data)
+                val inputData = LauncherSamActionInputData(model = prevModel)
+                val nextModel = LaunchLauncherSamAction.execute(samPresent::present, inputData)
                     .fold(
                         onSuccess = { it },
                         onFailure = { return Result.failure(it) }
                     )
-                SamNextAction.continued(model = nextModel)
+                Continue(model = nextModel)
             }
-            else -> SamNextAction.terminated(model = model)
+            else -> Terminate(model = model)
         }
-        return Result.success(nextAction)
+        return Result.success(result)
     }
 
 }
