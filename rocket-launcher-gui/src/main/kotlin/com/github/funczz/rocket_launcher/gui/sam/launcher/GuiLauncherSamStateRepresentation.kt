@@ -1,6 +1,7 @@
 package com.github.funczz.rocket_launcher.gui.sam.launcher
 
-import com.github.funczz.kotlin.sam.ISamStateRepresentation
+import com.github.funczz.kotlin.rop.result.RopResult
+import com.github.funczz.kotlin.rop_sam.ISamStateRepresentation
 import com.github.funczz.rocket_launcher.core.sam.launcher.ILauncherSamState
 import com.github.funczz.rocket_launcher.core.sam.launcher.LauncherSamModel
 import com.github.funczz.rocket_launcher.gui.util.ExtendedJFrame
@@ -20,7 +21,10 @@ object GuiLauncherSamStateRepresentation : ILauncherSamState,
             Unit,
             > {
 
-    override fun representation(model: LauncherSamModel, representationData: ExtendedJFrame): Result<Unit> {
+    override fun representation(
+        model: LauncherSamModel,
+        representationData: ExtendedJFrame,
+    ): RopResult<Unit> = RopResult.tee {
         val panel: Optional<JPanel> = when {
             isReady(model) -> Optional.of(ReadyPanel())
             isTransitionToCounting(model) -> Optional.of(CountingPanel(vm = CountingViewModel(model = model)))
@@ -36,6 +40,6 @@ object GuiLauncherSamStateRepresentation : ILauncherSamState,
                 it.isVisible = true
             }
         }
-        return Result.success(Unit)
+        Unit
     }
 }

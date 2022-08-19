@@ -1,9 +1,9 @@
 package com.github.funczz.rocket_launcher.core.domain.model.launcher.state
 
-import com.github.funczz.kotlin.fsm.FsmTransition
+import com.github.funczz.kotlin.rop.result.RopResult
+import com.github.funczz.kotlin.rop_fsm.FsmTransition
 import com.github.funczz.rocket_launcher.core.domain.model.launcher.Launcher
 import com.github.funczz.rocket_launcher.core.domain.model.launcher.LauncherEvent
-import java.util.*
 
 object Launched : ILauncherState {
     override fun toTransition(event: LauncherEvent): FsmTransition<LauncherEvent, Launcher> {
@@ -16,15 +16,15 @@ object Launched : ILauncherState {
         }
     }
 
-    override fun onEntry(event: LauncherEvent, ctx: Launcher): Result<Launcher> {
-        return Result.success(ctx.copy(state = Launched))
+    override fun onEntry(event: LauncherEvent, ctx: Launcher): RopResult<Launcher> = RopResult.tee {
+        ctx.copy(state = Launched)
     }
 
-    override fun onDo(event: LauncherEvent, ctx: Launcher): Result<Launcher> {
-        return Result.success(ctx)
+    override fun onDo(event: LauncherEvent, ctx: Launcher): RopResult<Launcher> = RopResult.tee {
+        ctx
     }
 
-    override fun onExit(event: LauncherEvent, ctx: Launcher): Result<Launcher> {
-        return Result.success(ctx)
+    override fun onExit(event: LauncherEvent, ctx: Launcher): RopResult<Launcher> = RopResult.tee {
+        ctx
     }
 }

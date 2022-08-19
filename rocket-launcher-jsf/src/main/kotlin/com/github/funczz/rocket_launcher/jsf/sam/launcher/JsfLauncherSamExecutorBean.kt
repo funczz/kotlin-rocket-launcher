@@ -1,6 +1,7 @@
 package com.github.funczz.rocket_launcher.jsf.sam.launcher
 
-import com.github.funczz.kotlin.sam.ISamExecutor
+import com.github.funczz.kotlin.rop.result.RopResult
+import com.github.funczz.kotlin.rop_sam.ISamExecutor
 import com.github.funczz.rocket_launcher.core.sam.launcher.LauncherSamActionInputData
 import com.github.funczz.rocket_launcher.core.sam.launcher.LauncherSamModel
 import com.github.funczz.rocket_launcher.core.sam.launcher.LauncherSamModelPresent
@@ -17,7 +18,7 @@ open class JsfLauncherSamExecutorBean : Serializable, ISamExecutor<
         LauncherSamActionInputData,
         LauncherSamModel,
         Unit,
-        String?
+        String
         > {
 
     private val samPresent = LauncherSamModelPresent::present
@@ -28,15 +29,15 @@ open class JsfLauncherSamExecutorBean : Serializable, ISamExecutor<
     @field:Inject
     protected open lateinit var samStateRepresentation: JsfLauncherSamStateRepresentationBean
 
-    override fun samPresent(): (LauncherSamActionInputData) -> Result<LauncherSamModel> {
+    override fun samPresent(): (LauncherSamActionInputData) -> RopResult<LauncherSamModel> {
         return samPresent
     }
 
-    override fun samNextAction(): (LauncherSamModel) -> Result<LauncherSamModel> {
+    override fun samNextAction(): (LauncherSamModel) -> RopResult<LauncherSamModel> {
         return samNextAction
     }
 
-    override fun samRepresentation(): (LauncherSamModel, Unit) -> Result<String?> {
+    override fun samRepresentation(): (LauncherSamModel, Unit) -> RopResult<String> {
         return samStateRepresentation::representation
     }
 

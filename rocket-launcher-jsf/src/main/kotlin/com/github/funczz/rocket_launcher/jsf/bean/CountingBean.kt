@@ -2,7 +2,6 @@ package com.github.funczz.rocket_launcher.jsf.bean
 
 import com.github.funczz.rocket_launcher.core.domain.model.launcher.Launcher
 import com.github.funczz.rocket_launcher.core.domain.model.launcher.state.Counting
-import com.github.funczz.rocket_launcher.core.domain.service.CountdownTimer
 import com.github.funczz.rocket_launcher.core.sam.launcher.LauncherSamActionInputData
 import com.github.funczz.rocket_launcher.core.sam.launcher.action.AbortLauncherSamAction
 import com.github.funczz.rocket_launcher.core.sam.launcher.action.DecrementLauncherSamAction
@@ -19,8 +18,6 @@ import javax.inject.Named
 open class CountingBean : Serializable {
 
     open var counter: Int? = null
-
-    private lateinit var countdownTimer: CountdownTimer
 
     @field:Default
     @field:Inject

@@ -46,8 +46,9 @@ subprojects {
      * repositories
      */
     repositories {
-        maven { setUrl("https://funczz.github.io/kotlin-fsm") }
-        maven { setUrl("https://funczz.github.io/kotlin-sam") }
+        maven { setUrl("https://funczz.github.io/kotlin-rop") }
+        maven { setUrl("https://funczz.github.io/kotlin-rop-fsm") }
+        maven { setUrl("https://funczz.github.io/kotlin-rop-sam") }
         maven { setUrl("https://funczz.github.io/kotlin-channel") }
     }
 

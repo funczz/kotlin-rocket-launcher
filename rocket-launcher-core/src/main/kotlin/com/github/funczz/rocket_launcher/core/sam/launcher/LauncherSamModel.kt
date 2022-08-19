@@ -1,6 +1,6 @@
 package com.github.funczz.rocket_launcher.core.sam.launcher
 
-import com.github.funczz.kotlin.sam.ISamModel
+import com.github.funczz.kotlin.rop_sam.ISamModel
 import com.github.funczz.rocket_launcher.core.domain.model.launcher.Launcher
 import com.github.funczz.rocket_launcher.core.domain.model.launcher.state.ILauncherState
 import java.util.*

@@ -1,5 +1,6 @@
 package com.github.funczz.rocket_launcher.core.domain.model.launcher
 
+import com.github.funczz.kotlin.rop.result.RopResult
 import com.github.funczz.rocket_launcher.core.domain.model.launcher.state.*
 import io.kotlintest.shouldBe
 import io.kotlintest.specs.StringSpec
@@ -12,7 +13,7 @@ internal class LauncherTest : StringSpec() {
         "Ready --ABORT--> Aborted" {
             val expected = Pair(
                 Aborted,
-                Result.success(Launcher(state = Aborted, counter = Optional.empty()))
+                RopResult.success { Launcher(state = Aborted, counter = Optional.empty()) }
             )
 
             val state = Ready
@@ -26,7 +27,7 @@ internal class LauncherTest : StringSpec() {
         "Ready --START(10)--> Counting" {
             val expected = Pair(
                 Counting,
-                Result.success(Launcher(state = Counting, counter = Optional.of(10u)))
+                RopResult.success { Launcher(state = Counting, counter = Optional.of(10u)) }
             )
 
             val state = Ready
@@ -40,7 +41,7 @@ internal class LauncherTest : StringSpec() {
         "Counting --ABORT--> Aborted" {
             val expected = Pair(
                 Aborted,
-                Result.success(Launcher(state = Aborted, counter = Optional.of(10u)))
+                RopResult.success { Launcher(state = Aborted, counter = Optional.of(10u)) }
             )
 
             val state = Counting
@@ -54,7 +55,7 @@ internal class LauncherTest : StringSpec() {
         "Counting --LAUNCH--> Launched" {
             val expected = Pair(
                 Launched,
-                Result.success(Launcher(state = Launched, counter = Optional.of(10u)))
+                RopResult.success { Launcher(state = Launched, counter = Optional.of(10u)) }
             )
 
             val state = Counting
@@ -68,7 +69,7 @@ internal class LauncherTest : StringSpec() {
         "Counting <--DECREMENT" {
             val expected = Pair(
                 Counting,
-                Result.success(Launcher(state = Counting, counter = Optional.of(9u)))
+                RopResult.success { Launcher(state = Counting, counter = Optional.of(9u)) }
             )
 
             val state = Counting
@@ -82,7 +83,7 @@ internal class LauncherTest : StringSpec() {
         "Aborted --FINISH--> END" {
             val expected = Pair(
                 End,
-                Result.success(Launcher(state = End, counter = Optional.of(10u)))
+                RopResult.success { Launcher(state = End, counter = Optional.of(10u)) }
             )
 
             val state = Aborted
@@ -96,7 +97,7 @@ internal class LauncherTest : StringSpec() {
         "Launched --FINISH--> END" {
             val expected = Pair(
                 End,
-                Result.success(Launcher(state = End, counter = Optional.of(10u)))
+                RopResult.success { Launcher(state = End, counter = Optional.of(10u)) }
             )
 
             val state = Launched

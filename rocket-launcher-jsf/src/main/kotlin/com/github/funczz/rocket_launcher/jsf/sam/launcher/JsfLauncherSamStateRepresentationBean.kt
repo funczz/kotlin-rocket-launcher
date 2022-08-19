@@ -1,6 +1,7 @@
 package com.github.funczz.rocket_launcher.jsf.sam.launcher
 
-import com.github.funczz.kotlin.sam.ISamStateRepresentation
+import com.github.funczz.kotlin.rop.result.RopResult
+import com.github.funczz.kotlin.rop_sam.ISamStateRepresentation
 import com.github.funczz.rocket_launcher.core.sam.launcher.ILauncherSamState
 import com.github.funczz.rocket_launcher.core.sam.launcher.LauncherSamModel
 import com.github.funczz.rocket_launcher.jsf.bean.AbortedBean
@@ -18,7 +19,7 @@ open class JsfLauncherSamStateRepresentationBean : Serializable, ILauncherSamSta
     ISamStateRepresentation<
             LauncherSamModel,
             Unit,
-            String?,
+            String
             > {
 
     @field:Default
@@ -29,8 +30,11 @@ open class JsfLauncherSamStateRepresentationBean : Serializable, ILauncherSamSta
     @field:Inject
     protected open lateinit var abortedBean: AbortedBean
 
-    override fun representation(model: LauncherSamModel, representationData: Unit): Result<String?> {
-        val result = when {
+    override fun representation(
+        model: LauncherSamModel,
+        representationData: Unit,
+    ): RopResult<String> = RopResult.tee {
+        when {
             isReady(model) -> "index" //"index?faces-redirect=true"
             isTransitionToCounting(model) -> {
                 countingBean.counter = model.counter.get().toInt()
@@ -47,9 +51,8 @@ open class JsfLauncherSamStateRepresentationBean : Serializable, ILauncherSamSta
                 abortedBean.currentCounter = Optional.empty()
                 "launched" //"launched?faces-redirect=true"
             }
-            else -> null
+            else -> ""
         }
-        return Result.success(result)
     }
 
     companion object {

@@ -1,6 +1,7 @@
 package io.kotlintest.provided.com.github.funczz.rocket_launcher.core.sam.launcher
 
-import com.github.funczz.kotlin.sam.ISamExecutor
+import com.github.funczz.kotlin.rop.result.RopResult
+import com.github.funczz.kotlin.rop_sam.ISamExecutor
 import com.github.funczz.rocket_launcher.core.sam.launcher.LauncherSamActionInputData
 import com.github.funczz.rocket_launcher.core.sam.launcher.LauncherSamModel
 import com.github.funczz.rocket_launcher.core.sam.launcher.LauncherSamModelPresent
@@ -20,15 +21,15 @@ object ResultLauncherSamExecutor : ISamExecutor<
 
     private val samStateRepresentation = ResultLauncherSamStateRepresentation::representation
 
-    override fun samPresent(): (LauncherSamActionInputData) -> Result<LauncherSamModel> {
+    override fun samPresent(): (LauncherSamActionInputData) -> RopResult<LauncherSamModel> {
         return samPresent
     }
 
-    override fun samNextAction(): (LauncherSamModel) -> Result<LauncherSamModel> {
+    override fun samNextAction(): (LauncherSamModel) -> RopResult<LauncherSamModel> {
         return samNextAction
     }
 
-    override fun samRepresentation(): (LauncherSamModel, Unit) -> Result<Optional<String>> {
+    override fun samRepresentation(): (LauncherSamModel, Unit) -> RopResult<Optional<String>> {
         return samStateRepresentation
     }
 
